@@ -31,6 +31,13 @@ exerciseRouter.route("/:id").get((req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
+exerciseRouter.route("/:id").delete((req, res) => {
+  Exercise.findByIdAndDelete(req.params.id)
+    .then((_) => {
+      res.json("Exercise deleted");
+    })
+    .catch((err) => res.status(400).json(err));
+});
 exerciseRouter.route("/update/:id").post((req, res) => {
   Exercise.findById(req.params.id)
     .then((exercise) => {
@@ -41,7 +48,7 @@ exerciseRouter.route("/update/:id").post((req, res) => {
 
       exercise
         .save()
-        .then((_) => res.josn("Exercise updated!"))
+        .then((_) => res.json("Exercise updated!"))
         .then((err) => res.status(400).json(err));
     })
     .catch((err) => res.status(400).json(err));
